@@ -1,16 +1,19 @@
 services:
   hamer-dev:
     build:
-      context: ../
+      context: ..
       dockerfile: ./docker/hamer-dev.Dockerfile
+    container_name: hamer
+    working_dir: /app
+    tty: true
+    stdin_open: true
+    shm_size: "16gb"
     volumes:
       - ../:/app
-    tty: true
     deploy:
       resources:
         reservations:
           devices:
             - driver: nvidia
-              count: 1 # alternatively, use `count: all` for all GPUs
+              count: 1
               capabilities: [gpu]
-
